@@ -75,7 +75,7 @@
                             
                           </div>
                         
-                          <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-3">
                             <label for="bname" class="form-label">Brand</label>
                             
                             <select class="form-control"  name="brand_id" id="bname">
@@ -88,35 +88,62 @@
                           </div>
 
 
-                          <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-3">
                             <label for="pcname" class="form-label">Product Code(SKU)</label>
                             <input class="form-control" type="text" name="product_code" id="pcname"  @if(!empty($product['product_code']))  value="{{$product->product_code}}" @else value="" @endif />
                           </div>
 
-                          <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-3">
                             <label for="pname" class="form-label">Product Color</label>
                             <input class="form-control" type="text" name="product_color" id="pname"  @if(!empty($product['product_color']))  value="{{$product->product_color}}" @else value="" @endif />
                           </div>
 
-                          <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-3">
                             <label for="pname" class="form-label">Product Price</label>
                             <input class="form-control" type="text" name="product_price" id="pname"  @if(!empty($product['product_price']))  value="{{$product->product_price}}" @else value="" @endif />
                           </div>                         
                         
-                          <div class="mb-3 col-md-6">
-                            <label for="product_discount" class="form-label"> Product Discount</label>
-                            <input class="form-control" type="text" name="product_discount" id="product_discount" @if(!empty($product['product_discount']))  value="{{$product->product_discount}}" @else value="" @endif />
+                          <div class="mb-3 col-md-3">
+                            <label for="product_selling_price" class="form-label"> Product Selling Price</label>
+                            <input class="form-control" type="text" name="product_selling_price" id="product_selling_price" @if(!empty($product['product_selling_price']))  value="{{$product->product_selling_price}}" @else value="" @endif />
                           </div>
 
-                          <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-3">
                             <label for="product_weight" class="form-label">Product Weight</label>
                             <input class="form-control" type="text" name="product_weight" id="product_weight"  @if(!empty($product['product_weight']))  value="{{$product->product_weight}}" @else value="" @endif />
+                          </div>
+
+                          <div class="mb-3 col-md-2">
+                            <label for="feature" class="form-label">Product Featured</label>
+                            
+                            <select class="form-control" name="is_featured" id="feature">
+                                <option value="">Choose Product Featured</option>
+                                <option value="Yes" @if(!empty($product['is_featured']) && $product['is_featured']=='Yes')  selected @else  @endif>Yes</option>
+                                <option value="No" @if(!empty($product['is_featured']) && $product['is_featured']=='No')  selected @else  @endif>No</option>
+                                
+                            </select>                            
+                            
+                          </div>
+
+                          <div class="mb-3 col-md-4">
+                            <label for="gst" class="form-label">GST on Product</label>
+                            
+                            <select class="form-control" name="gst" id="gst">
+                                <option value="">Choose GST on Product</option>
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_28')  selected @else  @endif  value="GST_28">GST_28</option>              
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_18')  selected @else  @endif value="GST_18">GST_18</option>
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_12')  selected @else  @endif value="GST_12">GST_12</option>
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_5')  selected @else  @endif value="GST_5">GST_5</option>
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_3')  selected @else  @endif value="GST_3">GST_3</option>
+                                <option @if(!empty($product['gst']) && $product['gst']=='GST_0')  selected @else  @endif value="GST_0">GST_0</option>
+                            </select>                            
+                            
                           </div>
                           
 
                           <div class="mb-3 col-md-12">
                             <label for="description" class="form-label">Product Description</label>
-                            <textarea class="form-control" type="text" name="description" id="description">@if(!empty($product['description'])) {{$product->description}} @else  @endif </textarea>
+                            <textarea rows="5" class="form-control" type="text" name="description" id="description">@if(!empty($product['description'])) {{$product->description}} @else  @endif </textarea>
                           </div>
                           
 
@@ -143,43 +170,21 @@
                             <label for="product_video" class="form-label">Product Video</label>
                             
                             <input class="form-control1" type="file" name="product_video" id="video" accept="video/mp4,video/x-m4v,video/*">
-                             @if(!empty($product['product_image'])) 
+                             
+                         </div>
+
+                          
+                          <div class="mb-3 col-md-12">
+                            @if(!empty($product['product_image'])) 
                                <input class="form-control" type="hidden" name="dbvideo" value="{{$product->product_video}}">
                                <br><br>
-                               <video width="100%" controls="">
-                                 <source src="{{url(asset('Frontend/assets/images/product')).'/'.$product->product_video}}"> 
+                               <video controls="">
+                                 <source src="{{url(asset('Frontend/assets/images/product')).'/'.$product->product_video}}" width="200px" height="250px"> 
                               </video>
                               <br>
                              <a href="{{url('admin/remove-product-video').'/'.$product->id}}">Delete Video</a>
                              @endif
-                          </div>
-
-                          <div class="mb-3 col-md-4">
-                            <label for="feature" class="form-label">Product Featured</label>
-                            
-                            <select class="form-control" name="is_featured" id="feature">
-                                <option value="">Choose Product Featured</option>
-                                <option value="Yes" @if(!empty($product['is_featured']) && $product['is_featured']=='Yes')  selected @else  @endif>Yes</option>
-                                <option value="No" @if(!empty($product['is_featured']) && $product['is_featured']=='No')  selected @else  @endif>No</option>
-                                
-                            </select>                            
-                            
-                          </div>
-
-                          <div class="mb-3 col-md-4">
-                            <label for="gst" class="form-label">GST on Product</label>
-                            
-                            <select class="form-control" name="gst" id="gst">
-                                <option value="">Choose GST on Product</option>
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_28')  selected @else  @endif  value="GST_28">GST_28</option>              
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_18')  selected @else  @endif value="GST_18">GST_18</option>
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_12')  selected @else  @endif value="GST_12">GST_12</option>
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_5')  selected @else  @endif value="GST_5">GST_5</option>
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_3')  selected @else  @endif value="GST_3">GST_3</option>
-                                <option @if(!empty($product['gst']) && $product['gst']=='GST_0')  selected @else  @endif value="GST_0">GST_0</option>
-                            </select>                            
-                            
-                          </div>
+                          </div>                         
                           
                           
                         </div>

@@ -179,6 +179,9 @@ Route::prefix('admin')->group(function ()
 
         Route::match(['get', 'post'],'add-edit-product/{id?}',[ProductController::class,'addEdit_product']) ;
 
+        // Bulk Product Listing
+
+        Route::match(['get', 'post'],'bulk-listing',[ProductController::class,'bulk_lisiting_product']) ;
         
         
         

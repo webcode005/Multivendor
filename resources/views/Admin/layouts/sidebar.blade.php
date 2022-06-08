@@ -138,7 +138,7 @@
             </li>
 
             
-            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products') active open @endif">
+            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products') || Session::get('page')=='bulk_listing' active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
                 <div data-i18n="Catalogue Management">Catalogue Management</div>
@@ -168,6 +168,12 @@
                 <li class="menu-item @if(Session::get('page')=='view_products') active @endif">
                   <a href="{{url('admin/products')}}" class="menu-link">
                     <div data-i18n="Products">Products</div>
+                  </a>
+                </li>
+
+                <li class="menu-item @if(Session::get('page')=='bulk_listing') active @endif">
+                  <a href="{{url('admin/bulk-listing')}}" class="menu-link">
+                    <div data-i18n="Product Bulk Listing">Product Bulk Listing</div>
                   </a>
                 </li>
                 

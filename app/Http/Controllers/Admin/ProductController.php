@@ -185,7 +185,7 @@ class ProductController extends Controller
                 $product->product_code = $data['product_code']; 
                 $product->product_color = $data['product_color'];
                 $product->product_price = $data['product_price'];
-                $product->product_discount = $data['product_discount'];
+                $product->product_selling_price = $data['product_selling_price'];
                 $product->product_weight = $data['product_weight']; 
                 $product->description = $data['description']; 
                 $product->meta_title = $data['meta_title'];
@@ -225,6 +225,186 @@ class ProductController extends Controller
         $data = $request->all();
         $getCategories = Subcat::where(['parent_id'=>0,'section_id'=>$data['section_id']])->get()->toArray();
         return view('Admin.categories.append-category-level')->with(compact('getCategories'));
+    }
+
+
+    public function bulk_lisiting_product(Request $request)
+    {     
+        $title = "Bulk Product Listing";  
+        Session::put('page',"bulk_listing");     
+
+            if($request->isMethod('post'))
+            {
+
+                $title = "Add Product";
+                $product = new Product;
+                $message = "Product Added Successfully!!";
+
+                
+                $data =$request->all();
+
+                print_r($data); die; 
+
+
+                $file = $_FILES["file"]["tmp_name"]; 
+                    
+                $file_open = fopen($file,"r");
+                $result = array();
+                $idd='1';
+                while(($csv = fgetcsv($file_open, 1000, ",")) !== false)
+                {
+
+                    if($idd!=1) 
+                    {
+                                $product->brand_id = $csv['0']; 
+                                $product->category_id = $csv['1']; 
+                                $product->subcategory_id = $csv['2']; 
+                                $product->subcat_id = $csv['3']; 
+                                $product->vendor_id = $csv['4']; 
+                                $product->admin_id = $csv['5']; 
+                                $product->admin_type = $csv['6']; 
+                                $product->product_name = $csv['7']; 
+                                $product->product_url = $csv['8']; 
+                                $product->product_code = $csv['9']; 
+                                $product->product_color = $csv['10']; 
+                                $product->product_price = $csv['11']; 
+                                $product->product_selling_price = $csv['12']; 
+                                $product->product_weight = $csv['13']; 
+                                $product->product_image = $csv['14']; 
+                                $product->product_video = $csv['15']; 
+                                $product->description = $csv['16']; 
+                                $product->gst = $data['17']; 
+                                $product->status = 0;                         
+                            
+
+                            
+                                $product->saveAll();
+                    }
+
+                            
+                            
+                    $idd++;        
+                            
+                }
+
+                unset($data);
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                // For Image
+
+                if(!empty($request->product_image))
+
+                {
+                    if($request->hasFile('product_image'))
+                    {
+                        $imageName = time().'.'.$request->product_image->extension();  
+             
+                        $request->product_image->move(public_path('Frontend/assets/images/product/'), $imageName);
+                    }
+                     
+                }
+                else 
+                {
+                    $imageName = $request->dbimage;                
+                }  
+                
+    
+                // For Video
+
+                if(!empty($request->product_video))
+                {
+                    if($request->hasFile('product_video'))
+                    {
+                         $videoName = time().'.'.$request->product_video->extension();  
+             
+                        $request->product_video->move(public_path('Frontend/assets/images/product/'), $videoName);
+                    }
+                    
+                } 
+                
+                else 
+                
+                {
+                    $videoName = $request->dbvideo; 
+                }
+
+
+                // $rules = 
+                //         [
+                //             "prod_name" =>'required',
+                //             "product_image" =>'required',
+                //             "meta_title" =>'required',
+                //             "meta_description" =>'required',
+                //             "meta_keywords" =>'required',
+                //         ];                                
+                          
+                // $customMessage = 
+                //                 [
+                //                     "prod_name.required" => "Product Name is required",
+                //                     "meta_title.required" => "Product Meta Title is required",
+                //                     "meta_description.required" => "Product Meta Description is required",
+                //                     "meta_keywords.required" => "Product Meta Keywords is required",
+                //                     'product_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                                    
+                //                  ];
+
+                // $this->validate($request,$rules,$customMessage);
+
+                $product->product_name = $data['prod_name']; 
+                $product->product_url = preg_replace('/[^a-z0-9-]+/', '-', trim(strtolower($data['prod_name'])));
+                $product->brand_id = $data['brand_id'];
+                $product->category_id = $data['category_id'];
+                $product->subcategory_id = $data['subcategory_id'];
+                $product->subcat_id = $data['subcat_id']; 
+
+                $adminType = Auth::guard('admin')->user()->type;
+                $vendor_id = Auth::guard('admin')->user()->vendor_id;
+                $admin_id = Auth::guard('admin')->user()->id;
+
+                $product->vendor_id = $vendor_id;
+                $product->admin_id = $admin_id;
+                $product->admin_type = $adminType;
+                
+                $product->product_image = $imageName;
+                $product->product_video = $videoName; 
+
+                $product->product_code = $data['product_code']; 
+                $product->product_color = $data['product_color'];
+                $product->product_price = $data['product_price'];
+                $product->product_selling_price = $data['product_selling_price'];
+                $product->product_weight = $data['product_weight']; 
+                $product->description = $data['description']; 
+                $product->meta_title = $data['meta_title'];
+                $product->meta_description = $data['meta_description'];                
+                $product->meta_keywords = $data['meta_keywords']; 
+                
+                $product->is_featured = $data['is_featured']; 
+                $product->gst = $data['gst'];              
+                
+                
+                $product->status = 1;
+                $product->save();
+
+                return redirect('admin/products')->with('success-message',$message);
+
+            }
+
+
+
+            
+        return view('Admin.products.bulk-listing')->with(compact('title'));
+
     }
 
     

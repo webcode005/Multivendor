@@ -11,28 +11,28 @@
                 <div class="col-md-12">
                   
                   <div class="card mb-4">
-                    <h5 class="card-header">Brand Details</h5>
-                    <form id="formAccountSettings" method="POST" @if(empty($brands['id'])) action="{{url('admin/add-edit-brand')}}" @else action="{{url('admin/add-edit-brand/'.$brands['id'])}}" @endif>
+                    <h5 class="card-header">Bulk Product Listing</h5>
+                    <form id="formAccountSettings" enctype="multipart/form-data" method="POST" @if(empty($category['id'])) action="{{url('admin/add-edit-category')}}" @else action="{{url('admin/add-edit-category/'.$category['id'])}}" @endif>
                     @csrf
                     <!-- Account -->
                     <div class="card-body">                                             
                   
                         <div class="row">
                           
+
                           <div class="mb-3 col-md-6">
-                            <label for="name" class="form-label">Brand Name</label>
-                            <input class="form-control" type="text" name="name" id="name"  @if(!empty($brands['id']))  value="{{$brands->name}}" @else value="" @endif />
-                          </div>
-                          
-                          
+                            <label for="image" class="form-label"> CSV File</label>
+                            <input class="form-control1" type="file" name="file" id="image" />
+                            
+                          </div>                        
+                         
                         </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                        <div class="mt-2 offset-md-5">
+                          <button type="submit" class="btn btn-primary me-2">Upload</button>
                         </div>
-                     
+                      </form>
                     </div>
                     <!-- /Account -->
-                     </form>
                   </div>
                   
                 </div>

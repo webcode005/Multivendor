@@ -17,8 +17,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>eCommerce - Dashboards | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-
+    <title>@if(isset($title)) {{ $title }} @else {{ config('app.name', 'ShoppingWheel') }} @endif</title>
+    
     <meta name="description" content="" />
 
     <!-- Favicon -->
