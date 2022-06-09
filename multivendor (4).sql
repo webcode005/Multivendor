@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2022 at 03:41 PM
+-- Generation Time: Jun 09, 2022 at 04:02 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -757,17 +757,17 @@ CREATE TABLE `products` (
   `product_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_discount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_selling_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_weight` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_keywords` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gst` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_featured` enum('No','Yes') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `is_featured` enum('No','Yes') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'No',
+  `status` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -776,60 +776,53 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `brand_id`, `category_id`, `subcategory_id`, `subcat_id`, `vendor_id`, `admin_id`, `admin_type`, `product_name`, `product_url`, `product_code`, `product_color`, `product_price`, `product_discount`, `product_weight`, `product_image`, `product_video`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `gst`, `is_featured`, `status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `products` (`id`, `brand_id`, `category_id`, `subcategory_id`, `subcat_id`, `vendor_id`, `admin_id`, `admin_type`, `product_name`, `product_url`, `product_code`, `product_color`, `product_price`, `product_selling_price`, `product_weight`, `product_image`, `product_video`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `gst`, `is_featured`, `status`, `created_at`, `updated_at`) VALUES
 (1, 7, 2, 1, 15, 1, 2, 'Vendor', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', 'realme narzo 50A', 'realme narzo 50A', 'realme narzo 50A', '', 'Yes', 1, '2022-05-30 12:02:02', '2022-06-01 05:19:44'),
 (2, 7, 2, 1, 15, 0, 1, 'Admin', 'realme 50A (Oxygen Ocean , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-50a', 'REAL01062022', 'Oxygen Ocean', '15,499.00', '1,500.00', '900', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', 'realme 50A', 'realme 50A', 'realme 50A', '', 'Yes', 1, '2022-06-01 12:02:02', '2022-06-02 05:18:18'),
-(3, 7, 2, 1, 15, 0, 1, 'Admin', 'abcd', 'abcd', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', 'df', 'dfhdjh', 'fxdg', 'GST_12', 'Yes', 1, '2022-06-02 07:32:33', '2022-06-03 06:18:25'),
+(3, 7, 2, 1, 15, 0, 1, 'Admin', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', 'df', 'dfhdjh', 'fxdg', 'GST_12', 'Yes', 1, '2022-06-02 07:32:33', '2022-06-08 05:21:12'),
 (4, 6, 13, 15, 29, 0, 1, 'Admin', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', 'testing', 'testing', 'testing', 'GST_28', 'Yes', 1, '2022-06-03 02:57:29', '2022-06-03 08:22:36'),
-(5, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', NULL, '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', 'Motorola M95', 'Motorola M95', 'Motorola M95', 'GST_12', 'Yes', 1, '2022-06-03 06:20:38', '2022-06-03 06:20:38');
+(5, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', NULL, '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', 'Motorola M95', 'Motorola M95', 'Motorola M95', 'GST_12', 'Yes', 1, '2022-06-03 06:20:38', '2022-06-03 06:20:38'),
+(6, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:28:44', '2022-06-09 02:28:44'),
+(7, 7, 2, 1, 15, 1, 2, 'Vendor', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:30:59', '2022-06-09 02:30:59'),
+(8, 7, 2, 1, 15, 0, 1, 'Admin', 'realme 50A (Oxygen Ocean , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-50a', 'REAL01062022', 'Oxygen Ocean', '15,499.00', '1,500.00', '900', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST_18', 'No', 0, '2022-06-09 02:30:59', '2022-06-09 02:30:59'),
+(9, 7, 2, 1, 15, 0, 1, 'Admin', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:30:59', '2022-06-09 02:30:59'),
+(10, 6, 13, 15, 29, 0, 1, 'Admin', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', NULL, NULL, NULL, 'GST_28', 'No', 0, '2022-06-09 02:30:59', '2022-06-09 02:30:59'),
+(11, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:30:59', '2022-06-09 02:30:59'),
+(12, 7, 2, 1, 15, 1, 2, 'Vendor', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:39:02', '2022-06-09 02:39:02'),
+(13, 7, 2, 1, 15, 0, 1, 'Admin', 'realme 50A (Oxygen Ocean , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-50a', 'REAL01062022', 'Oxygen Ocean', '15,499.00', '1,500.00', '900', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST_18', 'No', 0, '2022-06-09 02:39:02', '2022-06-09 02:39:02'),
+(14, 7, 2, 1, 15, 0, 1, 'Admin', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:39:02', '2022-06-09 02:39:02'),
+(15, 6, 13, 15, 29, 0, 1, 'Admin', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', NULL, NULL, NULL, 'GST_28', 'No', 0, '2022-06-09 02:39:02', '2022-06-09 02:39:02'),
+(16, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:39:02', '2022-06-09 02:39:02'),
+(17, 7, 2, 1, 15, 0, 1, 'Admin', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL._SL1500_.jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:46:48', '2022-06-09 02:46:48'),
+(18, 7, 2, 1, 15, 0, 1, 'Admin', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:46:48', '2022-06-09 02:46:48'),
+(19, 6, 13, 15, 29, 0, 1, 'Admin', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', NULL, NULL, NULL, 'GST_28', 'No', 0, '2022-06-09 02:46:48', '2022-06-09 02:46:48'),
+(20, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST_12', 'No', 0, '2022-06-09 02:46:48', '2022-06-09 02:46:48'),
+(21, 7, 2, 1, 15, 0, 1, 'Admin', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL. SL1500 .jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 02:50:31', '2022-06-09 02:50:31'),
+(22, 7, 2, 1, 15, 0, 1, 'Admin', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 02:50:31', '2022-06-09 02:50:31'),
+(23, 6, 13, 15, 29, 0, 1, 'Admin', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', NULL, NULL, NULL, 'GST 28', 'No', 0, '2022-06-09 02:50:31', '2022-06-09 02:50:31'),
+(24, 6, 13, 15, 29, 0, 1, 'Admin', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 02:50:31', '2022-06-09 02:50:31'),
+(25, 7, 2, 1, 15, 0, 1, 'Admin', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo-50a-oxygen-green-4gb-ram-128-gb-storage-helio-g85-processor-50mp-ai-triple-camera-6000-mah-battery', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', '1654771635.png', NULL, '<p>MediaTek Helio G85 Octa-core Processor 4 GB RAM | 128 GB ROM | Expandable Upto 256 GB 16.51 cm (6.5 inch) HD+ Display 50MP+2MP+2MP Primary Camera | 8MP Front Camera 6000 mAh Battery</p>', 'hfgj', 'hjljkl', 'hjghk', 'GST_28', 'No', 1, '2022-06-09 02:55:29', '2022-06-09 05:17:15'),
+(26, 7, 2, 1, 15, 1, 2, 'Vendor', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '', '<p>tewat</p>', NULL, NULL, NULL, 'GST 12', 'No', 1, '2022-06-09 02:55:29', '2022-06-09 05:10:08'),
+(27, 6, 13, 15, 29, 1, 2, 'Vendor', 'dfhdgh', 'dfhdgh', 'dfhdf', 'green', '5432', '532', '100gm', '1654256960.png', '1654264356.mp4', '<p>testing</p>', NULL, NULL, NULL, 'GST 28', 'No', 0, '2022-06-09 02:55:29', '2022-06-09 02:55:29'),
+(28, 6, 13, 15, 29, 1, 2, 'Vendor', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 02:55:29', '2022-06-09 02:55:29'),
+(29, 7, 2, 1, 15, 1, 2, 'Vendor', 'realme narzo 50A (Oxygen Green , 4GB RAM + 128 GB Storage) Helio G85 Processor | 50MP AI Triple Camera | 6000 mAh Battery', 'realme-narzo-50a--oxygen-green---4gb-ram---128-gb-storage--helio-g85-processor---50mp-ai-triple-camera---6000-mah-battery', 'REAL30052022', 'Oxygen Green', '12,499.00', '1,500.00', '1500', 'https://m.media-amazon.com/images/I/81W+d4FqbGL. SL1500 .jpg', '', 'MediaTek Helio G85 Octa-core Processor\r\n4 GB RAM | 128 GB ROM | Expandable Upto 256 GB\r\n16.51 cm (6.5 inch) HD+ Display\r\n50MP+2MP+2MP Primary Camera | 8MP Front Camera\r\n6000 mAh Battery', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 07:24:52', '2022-06-09 07:24:52'),
+(30, 7, 2, 1, 15, 1, 2, 'Vendor', 'abcde', 'abcde', 'sdfsdg', 'blue', '1554', '123', '100', '1654256905.jpg', '1654256905.mp4', '<p>tewat</p>', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 07:24:52', '2022-06-09 07:24:52'),
+(31, 6, 13, 15, 29, 1, 2, 'Vendor', 'Motorola M95', 'motorola-m95', 'dfhdf', 'White', '5432', '532', '100gm', '1654257038.jpg', 'NULL', '<p>Motorola M95 Motorola M95 Motorola M95 Motorola M95</p>', NULL, NULL, NULL, 'GST 12', 'No', 0, '2022-06-09 07:24:52', '2022-06-09 07:24:52');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_image`
+-- Table structure for table `product_images`
 --
 
-CREATE TABLE `product_image` (
+CREATE TABLE `product_images` (
   `id` int(11) NOT NULL,
-  `path` varchar(140) NOT NULL,
+  `file_name` varchar(140) NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT current_timestamp(),
   `uploaded_by` varchar(90) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product_image`
---
-
-INSERT INTO `product_image` (`id`, `path`, `upload_date`, `uploaded_by`, `created_at`, `updated_at`) VALUES
-(1, 'shopping__1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(2, 'shopping_1_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(3, 'shopping_2_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(4, 'shopping_3_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(5, 'shopping_4_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(6, 'shopping_5_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(7, 'shopping_6_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(8, 'shopping_7_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(9, 'shopping_8_1650096157.png', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(10, 'shopping_9_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(11, 'shopping_10_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(12, 'shopping_11_1650096157.jpg', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(13, 'shopping_12_1650096157.webp', '2022-04-16 01:02:37', '25', '2022-04-16 21:02:37', '2022-04-16 21:02:37'),
-(14, 'shopping__20220416020419.png', '2022-04-16 01:04:19', '25', '2022-04-16 21:04:19', '2022-04-16 21:04:19'),
-(15, 'shopping_14_20220416020419.png', '2022-04-16 01:04:19', '25', '2022-04-16 21:04:19', '2022-04-16 21:04:19'),
-(16, 'shopping_15_20220416020419.png', '2022-04-16 01:04:19', '25', '2022-04-16 21:04:19', '2022-04-16 21:04:19'),
-(17, 'shopping__20220416013947.png', '2022-04-16 01:09:47', '25', '2022-04-16 20:39:47', '2022-04-16 20:39:47'),
-(18, 'shopping__20220416014226.png', '2022-04-16 01:12:26', '25', '2022-04-16 20:42:26', '2022-04-16 20:42:26'),
-(19, 'shopping__20220416014403.webp', '2022-04-16 01:14:03', '1', '2022-04-16 20:44:03', '2022-04-16 20:44:03'),
-(20, 'shopping_19_20220416014403.png', '2022-04-16 01:14:03', '1', '2022-04-16 20:44:03', '2022-04-16 20:44:03'),
-(21, 'shopping_20_20220416014403.jpg', '2022-04-16 01:14:03', '1', '2022-04-16 20:44:03', '2022-04-16 20:44:03'),
-(22, 'shopping__20220416104037.png', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37'),
-(23, 'shopping_22_20220416104037.jpg', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37'),
-(24, 'shopping_23_20220416104037.jpg', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37'),
-(25, 'shopping_24_20220416104037.jpg', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37'),
-(26, 'shopping_25_20220416104037.jpg', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37'),
-(27, 'shopping_26_20220416104037.jpg', '2022-04-16 10:10:37', '1', '2022-04-17 05:40:37', '2022-04-17 05:40:37');
 
 -- --------------------------------------------------------
 
@@ -1249,9 +1242,9 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product_image`
+-- Indexes for table `product_images`
 --
-ALTER TABLE `product_image`
+ALTER TABLE `product_images`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1414,13 +1407,13 @@ ALTER TABLE `post_categories`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `product_image`
+-- AUTO_INCREMENT for table `product_images`
 --
-ALTER TABLE `product_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `product_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `save_custom_designs`

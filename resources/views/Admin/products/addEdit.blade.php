@@ -19,6 +19,17 @@
                   
                         <div class="row">
 
+                                  @if ($message = Session::get('success-message'))
+                                    <br><br>
+                                    <div class="col-md-12">                                                       
+                                        <div class="alert alert-dark alert-dismissible" role="alert">
+                                          {{ $message }}
+                                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>                                        
+                                        </div>
+                                    </div>
+                                        
+                                    @endif
+
                          <div class="mb-3 col-md-12">
                             <label for="pname" class="form-label">Product Name</label>
                             <input class="form-control" type="text" name="prod_name" id="pname"  @if(!empty($product['product_name']))  value="{{$product->product_name}}" @else value="" @endif />
@@ -31,8 +42,7 @@
                                <input class="form-control" type="hidden" name="dbimage" value="{{$product->product_image}}">
                                <br>
                                <img src="{{url(asset('Frontend/assets/images/product')).'/'.$product->product_image}}" width="160px"> 
-                               <br>
-                               <a href="{{url('admin/remove-product-image').'/'.$product->id}}">Delete Image</a>
+                              
                              @endif
                           </div>
                           
@@ -175,7 +185,8 @@
 
                           
                           <div class="mb-3 col-md-12">
-                            @if(!empty($product['product_image'])) 
+                            echo $product['product_video'];
+                            @if(!empty($product['product_video']) || $product['product_video'] !="NULL" ) 
                                <input class="form-control" type="hidden" name="dbvideo" value="{{$product->product_video}}">
                                <br><br>
                                <video controls="">

@@ -183,9 +183,14 @@ Route::prefix('admin')->group(function ()
 
         Route::match(['get', 'post'],'bulk-listing',[ProductController::class,'bulk_lisiting_product']) ;
         
+        // Delete Product Video
         
+        Route::get('/remove-product-video/{id}',[ProductController::class,'delete_product_video']) ;
         
-        
+        // Add Mulitiple product Image or Gallery
+
+        Route::match(['get', 'post'],'gallery',[ProductController::class,'multiple_image']) ;
+
         
         
     });

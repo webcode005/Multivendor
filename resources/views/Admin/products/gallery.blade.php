@@ -11,8 +11,8 @@
                 <div class="col-md-12">
                   
                   <div class="card mb-4">
-                    <h5 class="card-header">Bulk Product Listing</h5>
-                    <form id="formAccountSettings" enctype="multipart/form-data" method="POST" action="{{url('admin/bulk-listing')}}">
+                    <h5 class="card-header">Bulk Product Image</h5>
+                    <form id="formAccountSettings" enctype="multipart/form-data" method="POST" action="{{url('admin/gallery')}}">
                     @csrf
                     <!-- Account -->
                     <div class="card-body">                                             
@@ -21,8 +21,8 @@
                           
 
                           <div class="mb-3 col-md-6">
-                            <label for="image" class="form-label"> CSV File</label>
-                            <input class="form-control1" type="file" name="file" id="image" required>
+                            <label for="image" class="form-label"> Choose Multiple Images</label>
+                            <input class="form-control1" type="file" name="images" multiple id="image" required/>
                             
                           </div>                        
                          

@@ -138,7 +138,7 @@
             </li>
 
             
-            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products') || Session::get('page')=='bulk_listing' active open @endif">
+            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products' || Session::get('page')=='bulk_listing') active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
                 <div data-i18n="Catalogue Management">Catalogue Management</div>
@@ -204,6 +204,56 @@
 
 
             @endif
+
+            
+            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products' || Session::get('page')=='bulk_listing' || Session::get('page')=='gallery') active open @endif">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+                <div data-i18n="Catalogue Management">Catalogue Management</div>
+              </a>
+              <ul class="menu-sub">
+                
+                <li class="menu-item @if(Session::get('page')=='categories') active @endif">
+                  <a href="{{url('admin/categories')}}" class="menu-link">
+                    <div data-i18n="Categories">Categories</div>
+                  </a>
+                </li>
+                <li class="menu-item @if(Session::get('page')=='subcategories') active @endif">
+                  <a href="{{url('admin/subcategories')}}" class="menu-link">
+                    <div data-i18n="Sub Categories">Sub Categories</div>
+                  </a>
+                </li>
+                <li class="menu-item @if(Session::get('page')=='subcat') active @endif">
+                  <a href="{{url('admin/subcat')}}" class="menu-link">
+                    <div data-i18n="Sub SubCategories">Sub SubCategories</div>
+                  </a>
+                </li>
+                <li class="menu-item @if(Session::get('page')=='brands') active @endif">
+                  <a href="{{url('admin/brands')}}" class="menu-link">
+                    <div data-i18n="Brands">Brands</div>
+                  </a>
+                </li>
+                <li class="menu-item @if(Session::get('page')=='view_products') active @endif">
+                  <a href="{{url('admin/products')}}" class="menu-link">
+                    <div data-i18n="Products">Products</div>
+                  </a>
+                </li>
+
+                <li class="menu-item @if(Session::get('page')=='gallery') active @endif">
+                  <a href="{{url('admin/gallery')}}" class="menu-link">
+                    <div data-i18n="Upload Product Images">Upload Product Images</div>
+                  </a>
+                </li>
+
+                <li class="menu-item @if(Session::get('page')=='bulk_listing') active @endif">
+                  <a href="{{url('admin/bulk-listing')}}" class="menu-link">
+                    <div data-i18n="Product Bulk Listing">Product Bulk Listing</div>
+                  </a>
+                </li>
+
+                
+              </ul>
+            </li>
 
             
 

@@ -57,7 +57,7 @@
                     </thead>
                     <tbody>
                         <?php $ik='1';?>
-                        @foreach($products as $product)
+                        @foreach($products as $product)                        
 
                         <tr>
                             <td>{{ $ik++;}}</td>                            
@@ -69,7 +69,7 @@
                             <td>{{ $product['bname']}}</td>
                             <td>{{ $product['product_url']}}</td>
                             <td>{{ $product['product_color']}}</td>
-                            <td>@if($product['vendor_id'] == '0') {{$product['admin_type']}} @else  <a href="{{url('admin/view-vendor-details').'/'.$product['admin_id']}}">{{ $product['admin_type']}}</a>@endif</td>                            
+                            <td>@if($product['vendor_id'] == '0') {{$product['admin_type']}} @else  <a href="{{url('admin/view-vendor-details').'/'.$product['admin_id']}}">{{ $product['admin_type'].' ('.$product['Adminname'].')'}}</a>@endif</td>                            
                             <td>@if($product['status'] == '1')
                               <a href="javascript:void(0)" class="updateProductStatus" id="product-{{$product['id']}}" product_id="{{$product['id']}}"> <span class="badge bg-success"  id="status" status="Active"> Active </span></a> 
                               @else <a class="updateProductStatus" id="product-{{$product['id']}}" product_id="{{$product['id']}}" href="javascript:void(0)"> <span class="badge bg-danger" id="status" status="InActive"> InActive </span> </a> @endif </td>
