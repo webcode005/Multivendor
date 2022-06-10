@@ -11,8 +11,8 @@
                 <div class="col-md-12">
                   
                   <div class="card mb-4">
-                    <h5 class="card-header">Bulk Product Listing</h5>
-                    <form id="formAccountSettings" enctype="multipart/form-data" method="POST" action="{{url('admin/bulk-listing')}}">
+                    <h5 class="card-header">Update Product Image</h5>
+                    <form id="formAccountSettings" enctype="multipart/form-data" method="POST" action="{{url('admin/update-product-image')}}">
                     @csrf
                     <!-- Account -->
                     <div class="card-body">                                             
@@ -21,13 +21,12 @@
                           
 
                           <div class="mb-3 col-md-6">
-                            <label for="image" class="form-label"> CSV File</label>
-                            <input class="form-control1" type="file" name="file" id="image" required>
-                            
-                          </div>  
-                          <br>
-                          <a href="{{url('backend/assets/uploads/product_listing.csv')}}">Sample File</a>
-                          <br>                      
+                            <label for="image" class="form-label"> Choose Image</label>
+                            <input type="hidden" value="{{$singleimage['id']}}" name="id">
+                            <input type="hidden" value="{{$singleimage['file_name']}}" name="dbimage">
+                            <input class="form-control1" type="file" name="image" id="image">
+                            <br><img src="{{url('Frontend/assets/images/product').'/'.$singleimage['file_name']}}" width="150px"></br>
+                          </div>                        
                          
                         </div>
                         <div class="mt-2 offset-md-5">
@@ -39,7 +38,9 @@
                   </div>
                   
                 </div>
-              </div>
+              </div>         
+
+
             </div>
             <!-- / Content -->
 

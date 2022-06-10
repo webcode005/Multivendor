@@ -187,10 +187,24 @@ Route::prefix('admin')->group(function ()
         
         Route::get('/remove-product-video/{id}',[ProductController::class,'delete_product_video']) ;
         
+        // product Image Gallery
+
+        Route::get('/gallery',[ProductController::class,'gallery']) ;
+
         // Add Mulitiple product Image or Gallery
 
-        Route::match(['get', 'post'],'gallery',[ProductController::class,'multiple_image']) ;
+        Route::post('/add-product-image',[ProductController::class,'add_multiple_image']) ;
 
+        // Edit Gallery Image
+        Route::get('/edit-product-gallery-image/{id}',[ProductController::class,'edit_product_gallery_image']) ;
+
+        // Update Gallery Iamge
+
+        Route::post('/update-product-image',[ProductController::class,'update_product_image']) ;
+
+        // Delete Gallery Image
+
+        Route::get('/delete-product-gallery-image/{id}',[ProductController::class,'delete_product_gallery_image']) ;
         
         
     });

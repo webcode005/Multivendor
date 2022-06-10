@@ -11,6 +11,9 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductImage;
 
+use Illuminate\Support\Str;
+
+
 use Session;
 use DB;
 use Auth;
@@ -399,7 +402,7 @@ class ProductController extends Controller
     {
         $product =  Product::select('product_video')->where('id',$id)->first();
 
-        echo $videoName = $product->product_video;
+        $videoName = $product->product_video;
 
 
         $video_path = 'Frontend/assets/images/product/';
@@ -424,11 +427,47 @@ class ProductController extends Controller
         return redirect()->back()->with('success-message',$message);
     }
 
-    public function multiple_image(Request $request)
+    public function gallery()
+    {
+        $admin_id = Auth::guard('admin')->user()->id; 
+        $admin_name = Auth::guard('admin')->user()->name;        
+
+        Session::put('page',"gallery");
+        $title  = "Gallery Product Images";
+
+        if($admin_id == '1')
+        {
+            $product_images =DB::table('product_images')
+                
+                ->join('admins', 'product_images.uploaded_by', '=', 'admins.id')
+                ->select('product_images.*','admins.name as Adminname')           
+                ->get();
+        }           
+      
+        else
+        {
+            $product_images =DB::table('product_images')
+                
+                ->join('admins', 'product_images.uploaded_by', '=', 'admins.id')
+                ->select('product_images.*', 'admins.name as Adminname')
+                ->where('product_images.uploaded_by',$admin_id )
+                ->get();
+        }   
+
+
+        //dd($products);
+
+        $product_images = json_decode(json_encode($product_images),true);
+
+        return view('Admin.products.gallery')->with(compact('product_images','title'));
+
+
+    }
+
+    public function add_multiple_image(Request $request)
     {
         $title = "Upload Bulk Product Images";  
-        Session::put('page',"gallery");     
-
+        
             if($request->isMethod('post'))
             {
 
@@ -437,35 +476,158 @@ class ProductController extends Controller
                 $message = "Product Images Added Successfully!!";
                 $admin_id = Auth::guard('admin')->user()->id;
         
-                // $data = $request->all();
+                //  $data = $request->all();
 
-                // print_r($data); die;
+                //  print_r($data); die;
 
-                foreach ($request->file('images') as $imagefile) 
+                // insert
+                                
+                $images=array();
+                $last_id = '';
+                date_default_timezone_set("Asia/Calcutta");
+                
+                
+                if($request->hasFile('image'))
                 {
-                        $image = new ProductImag;
-                        
-                        $imageName = time().'.'.$request->images->extension();  
-                        
-                        //$request->images->move(public_path('Frontend/assets/images/product/'), $imageName);
-                        
-                        $imagefile->store('/Frontend/assets/images/product', ['disk' =>   'my_files']);
+                    $files = $request->file('image');
+                    foreach($files as $file){
+                        $filename = $file->getClientOriginalName();
+                        $extension = $file->getClientOriginalExtension();
+                        $fileName = Str::random(5)."-".date('his')."-".Str::random(3).".".$extension;
+                        $destinationPath = 'Frontend/assets/images/product'.'/';
+                        $file->move($destinationPath, $fileName);
 
-                        $image->file_name = $imageName;
-
-                        $image->upload_date = date("Y-m-d H:i:s");
-
-                        $image->uploaded_b = $admin_id;
+                        $save = new  ProductImage;                         
+                    
+                        $save->file_name = $fileName;
+                        $save->uploaded_by =$admin_id;
+                        $save->upload_date = date("Y-m-d H:i:s");                   
                         
-                        $image->save();
+                        $save->save();
+
                     }
-        
-            }
 
-            
-        return view('Admin.products.gallery')->with(compact('title'));
+                }
+
+
+                return redirect()->back()->with('success-message',$message);      
+
+            }
 
     }
 
+    public function edit_product_gallery_image($id)
+    {   
+        $title = "Update Product Image";
+                
+        $admin_id = Auth::guard('admin')->user()->id;
+        $where = array('id' => $id,'uploaded_by' => $admin_id);
+        $singleimage = ProductImage::where($where)->first();      
+        return view('Admin.products.edit-gallery')->with(compact('singleimage','title'));
+    }
+   
     
+    public function update_product_image(Request $request)
+    {
+        $admin_id = Auth::guard('admin')->user()->id;
+         $message = "Image Updated Successfully";
+
+          $id = $request->id; 
+
+         if(empty($request->image))
+
+         {
+            $imageName = $request->dbimage; 
+         }
+         else 
+         {
+            $validatedData = $request->validate([
+                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        
+               ]);
+                    
+               if($request->hasFile('image'))
+               {
+                $files = $request->file('image');
+                    if ($files->isValid()) 
+                    {
+                        $file = $files;
+                        $destination = 'Frontend/assets/images/product'.'/';
+                        $ext= $file->getClientOriginalExtension(); 
+                        $mainFilename = Str::random(6).date('h-i-s');
+                        $file->move($destination, $mainFilename.".".$ext);
+                        $imageName = $mainFilename.".".$ext;
+                    }
+                }
+
+                        
+         }
+
+                        $save = ProductImage::find($id);                         
+                    
+                        $save->file_name = $imageName;
+                        $save->uploaded_by =$admin_id;
+                        $save->upload_date = date("Y-m-d H:i:s");                   
+                        
+                        $save->save();
+
+                        return redirect('admin/gallery')->with('success-message',$message);
+
+
+         
+       
+    //         $file_name = $request->cname;
+    //         $course_description = $request->cdescription; 
+    //         $course_category = $request->category; 
+    //         $course_image = $imageName;
+
+
+    //     $course_update = DB::update("update courses set `course_name`='$course_name',`course_category`='$course_category',`course_description`='$course_description',`course_image`='$course_image' where `tid`=$id AND `uploaded_by` = $User_Id ");
+
+    //     //print_r($course_update); die;
+
+    //     if($course_update =='1')
+    //     {
+    //         $message = 'Great! Courses updated successfully';
+    //     }
+    //     else
+    //     {
+    //         $message = 'Nothing is updated !!';
+    //     }
+
+    //     return Redirect::to('courses')
+    //    ->with('success',$message);
+    }
+
+     // Delete Product Video
+
+     public function delete_product_gallery_image($id)
+     {
+         $product =  ProductImage::select('file_name')->where('id',$id)->first();
+ 
+         $imageName = $product->file_name;
+ 
+         $image_path = 'Frontend/assets/images/product/';
+ 
+         if(file_exists($image_path.$imageName))
+         {
+             unlink($image_path.$imageName);
+         }       
+ 
+         ProductImage::where('id',$id)->delete();
+ 
+         $message = "Product image Deleted Successfully";
+         return redirect()->back()->with('success-message',$message);
+     }
+ 
+
+
+
+
+
+
+
+
+
+
 }

@@ -106,39 +106,7 @@
               </ul>
             </li>
 
-            @else
-
-            <li class="menu-item @if(Session::get('page')=='view_admins' || Session::get('page')=='view_subadmins' || Session::get('page')=='view_vendors' || Session::get('page')=='view_all') active open @endif">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Admin Management">Admin Management</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item @if(Session::get('page')=='view_admins') active @endif">
-                  <a href="{{url('admin/admins/admin')}}" class="menu-link">
-                    <div data-i18n="Admins">Admins</div>
-                  </a>
-                </li>
-                <li class="menu-item @if(Session::get('page')=='view_subadmins') active @endif">
-                  <a href="{{url('admin/admins/subadmin')}}" class="menu-link">
-                    <div data-i18n="Subadmins">Subadmins</div>
-                  </a>
-                </li>
-                <li class="menu-item @if(Session::get('page')=='view_vendors') active @endif">
-                  <a href="{{url('admin/admins/vendor')}}" class="menu-link">
-                    <div data-i18n="Vendors">Vendors</div>
-                  </a>
-                </li>
-                <li class="menu-item @if(Session::get('page')=='view_all') active @endif">
-                  <a href="{{url('admin/admins')}}" class="menu-link">
-                    <div data-i18n="All">All</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            
-            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products' || Session::get('page')=='bulk_listing') active open @endif">
+            <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products' || Session::get('page')=='bulk_listing' || Session::get('page')=='gallery') active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
                 <div data-i18n="Catalogue Management">Catalogue Management</div>
@@ -171,39 +139,52 @@
                   </a>
                 </li>
 
+                <li class="menu-item @if(Session::get('page')=='gallery') active @endif">
+                  <a href="{{url('admin/gallery')}}" class="menu-link">
+                    <div data-i18n="Upload Product Images">Upload Product Images</div>
+                  </a>
+                </li>
+
                 <li class="menu-item @if(Session::get('page')=='bulk_listing') active @endif">
                   <a href="{{url('admin/bulk-listing')}}" class="menu-link">
                     <div data-i18n="Product Bulk Listing">Product Bulk Listing</div>
                   </a>
                 </li>
+
                 
               </ul>
             </li>
 
+            @else
 
-            
-            <li class="menu-item">
+            <li class="menu-item @if(Session::get('page')=='view_admins' || Session::get('page')=='view_subadmins' || Session::get('page')=='view_vendors' || Session::get('page')=='view_all') active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="User Management">User Management</div>
+                <div data-i18n="Admin Management">Admin Management</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-user-list.html" class="menu-link">
-                    <div data-i18n="Subscribers">Subscribers</div>
+                <li class="menu-item @if(Session::get('page')=='view_admins') active @endif">
+                  <a href="{{url('admin/admins/admin')}}" class="menu-link">
+                    <div data-i18n="Admins">Admins</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link">
-                    <div data-i18n="Users">Users</div>
+                <li class="menu-item @if(Session::get('page')=='view_subadmins') active @endif">
+                  <a href="{{url('admin/admins/subadmin')}}" class="menu-link">
+                    <div data-i18n="Subadmins">Subadmins</div>
                   </a>
-                  
+                </li>
+                <li class="menu-item @if(Session::get('page')=='view_vendors') active @endif">
+                  <a href="{{url('admin/admins/vendor')}}" class="menu-link">
+                    <div data-i18n="Vendors">Vendors</div>
+                  </a>
+                </li>
+                <li class="menu-item @if(Session::get('page')=='view_all') active @endif">
+                  <a href="{{url('admin/admins')}}" class="menu-link">
+                    <div data-i18n="All">All</div>
+                  </a>
                 </li>
               </ul>
             </li>
-
-
-            @endif
 
             
             <li class="menu-item @if(Session::get('page')=='brands' || Session::get('page')=='categories'|| Session::get('page')=='subcategories' || Session::get('page')=='subcat' || Session::get('page')=='view_products' || Session::get('page')=='bulk_listing' || Session::get('page')=='gallery') active open @endif">
@@ -254,6 +235,34 @@
                 
               </ul>
             </li>
+
+
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="User Management">User Management</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-user-list.html" class="menu-link">
+                    <div data-i18n="Subscribers">Subscribers</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Users">Users</div>
+                  </a>
+                  
+                </li>
+              </ul>
+            </li>
+
+
+            @endif
+
+            
+            
 
             
 
